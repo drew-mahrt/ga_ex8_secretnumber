@@ -1,41 +1,61 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class App
 {
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
 		System.out.println("Welcome to SECRET NUMBER! Please enter your first name.");
-		//take the player's name and save it to a variable called player_name
+		String player_name = input.nextLine();
 
-
-		//Insert the player's name below
-		System.out.println("Hello there, PLAYER_NAME.  Here are the rules:");
+		System.out.println("Hello there " + player_name + ", here are the rules:");
 		System.out.println("1. You will try to guess a number between 0 and 10");
-		System.out.println("2. You have three tries");
+		System.out.println("2. You have three tries\n");
 
-		//run the function to check the user's number
-		//If the user guessed correctly, print a congratulations message, otherwise print a failure message
-
+		if (checkUsersNumber()){
+			System.out.println("Congratulations, you guessed the right number!!!");
+		} else {
+			System.out.println("You did not guess the right number :(");
+		}
 	}
 
-	static boolean checkUsersNumber()
-	{
-		//Code for getting a random number
+	static boolean checkUsersNumber() {
+		Scanner guessInput = new Scanner(System.in);
 		Random r = new Random();
 		int secretNumber = r.nextInt(11);
-
-		//Create a loop to get the player's guess and check it
+//		System.out.println(secretNumber);
+		int guesses = 1;
+		int guess;
+		int remainingGuesses;
 
 		System.out.println("Your SECRET NUMBER has been chosen - guess a number between 0 and 10!");
-		//Get the user's guess
-
-		//Check the guess
-
-		//check to see if the player_guess is more than the @random_number
-		System.out.println("You guessed too high, silly! You have REMAINING_GUESSES guesses before the game is over");
-		//else
-		System.out.println("You guessed too low, silly! You have REMAINING_GUESSES guesses before the game is over");
-
+		
+		while (guesses < 4){
+			guess = guessInput.nextInt();
+			remainingGuesses = 3 - guesses;
+			if(guess > secretNumber){
+				if(remainingGuesses == 1){
+					System.out.println("You guessed too high, silly! You have " + remainingGuesses +
+									   " guess before the game is over");
+				} else {
+					System.out.println("You guessed too high, silly! You have " + remainingGuesses +
+									   " guesses before the game is over");
+				}
+				guesses ++;
+			} else if (guess < secretNumber) {
+				if(remainingGuesses == 1){
+					System.out.println("You guessed too high, silly! You have " + remainingGuesses +
+							" guess before the game is over");
+				} else {
+					System.out.println("You guessed too high, silly! You have " + remainingGuesses +
+							" guesses before the game is over");
+				}
+				guesses ++;
+			} else if (guess == secretNumber) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
